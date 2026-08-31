@@ -18,6 +18,12 @@ Plain HTML, CSS and a little JavaScript — **no build step required to deploy**
 Supporting files: `styles.css`, `main.js` (mobile menu, footer year, gentle
 scroll-in), `favicon.svg`, `CNAME`, `robots.txt`, `sitemap.xml`, `.nojekyll`.
 
+## Media coverage
+
+The press cards on **About us** come from the `MEDIA` list near the top of
+`build_site.py` — `(outlet, headline, year, url, image-or-None)`. Add a tuple,
+put any clipping image in `assets/media/`, re-run `python3 build_site.py`.
+
 ## Fonts & colours
 
 Headings use **Lora** (loaded from Google Fonts). Colours are CSS variables at the

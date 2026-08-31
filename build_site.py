@@ -38,6 +38,64 @@ PARTNERS = [
     ("The Alchemy Experiment", "https://www.alchemyexperiment.com/"),
 ]
 
+# Media coverage — (outlet, headline, year, url, image or None)
+MEDIA = [
+    ("Glasgow Times", "Jackie Marno-McGoldrick Prize held in Glasgow for second year",
+     "2025", "https://www.glasgowtimes.co.uk/news/scottish-news/25581673.jackie-marno-mcgoldrick-prize-held-glasgow-second-year/",
+     "assets/media/press-glasgowtimes-print.jpg"),
+    ("Clydebank Post", "Son of late Clydebank art teacher reveals plans to carry on her legacy",
+     "2024", "https://www.clydebankpost.co.uk/news/24001386.son-late-clydebank-art-teacher-reveals-plans-carry-legacy/",
+     "assets/media/press-clydebankpost-2024.jpg"),
+    ("Glasgow West End", "The Jackie Marno-McGoldrick Art Prize and Exhibition",
+     "2025", "https://www.glasgowwestend.co.uk/the-jackie-marno-mcgoldrick-art-prize-and-exhibition-2025/",
+     "assets/media/press-glasgowwestend.jpg"),
+    ("The National", "Jackie Marno: a tribute to an extraordinary woman",
+     "2023", "https://www.thenational.scot/sevendays/23427692.jackie-marno-tribute-extraordinary-woman/", None),
+    ("Clydebank Post", "Clydebank High School pays tribute to a much-loved art teacher",
+     "2023", "https://www.clydebankpost.co.uk/news/23417651.clydebank-high-school-tributes-much-loved-art-teacher/", None),
+    ("Artmag", "Clydebank’s young talent at The Alchemy Experiment, Glasgow",
+     "2024", "https://artmag.co.uk/clydebanks-young-talent-at-the-alchemy-experiment-glasgow/", None),
+    ("Instagram", "The 2025 exhibition",
+     "2025", "https://www.instagram.com/p/DQUj1zOjPfp/", None),
+    ("Instagram", "Opening night",
+     "2025", "https://www.instagram.com/p/DQuLc5CDHwZ/", None),
+    ("LinkedIn", "Callum Stewart on founding the prize",
+     "2024", "https://www.linkedin.com/posts/callum-stewart-msc_what-an-absolute-thrill-it-is-to-help-make-activity-7391808358762315776-8V3_", None),
+]
+
+
+def media_section():
+    cards = []
+    for outlet, headline, year, url, img in MEDIA:
+        img_html = ""
+        cls = "press-card"
+        if img:
+            cls += " has-img"
+            img_html = (f'\n        <span class="press-card-img">'
+                        f'<img src="{img}" loading="lazy" decoding="async" alt="{html.escape(outlet)} coverage of the prize"></span>')
+        cards.append(
+            f'      <a class="{cls}" href="{url}" target="_blank" rel="noopener">{img_html}\n'
+            f'        <span class="press-card-body">\n'
+            f'          <span class="press-outlet">{html.escape(outlet)}</span>\n'
+            f'          <strong>{html.escape(headline)}</strong>\n'
+            f'          <span class="muted">{year}</span>\n'
+            f'        </span>\n'
+            f'      </a>'
+        )
+    return (
+        '  <section class="section section-alt" id="media-coverage">\n'
+        '    <div class="wrap">\n'
+        '      <p class="eyebrow">Media coverage</p>\n'
+        '      <h2>The prize in the press</h2>\n'
+        '      <p class="section-lede">Selected coverage of the prize and of Jackie, in print and online.</p>\n'
+        '      <div class="press-grid">\n'
+        + "\n".join(cards) +
+        '\n      </div>\n'
+        '    </div>\n'
+        '  </section>\n'
+    )
+
+
 SCHOOL_ORDER = [
     "clydebank-high-school",
     "st-peter-the-apostle",
@@ -377,6 +435,7 @@ ABOUT = f"""
     </div>
   </section>
 
+{media_section()}
   <section class="section section-contact" id="get-involved">
     <div class="wrap contact-grid">
       <div class="contact-intro">
@@ -541,6 +600,11 @@ EXHIBITIONS = """
         <h2>2024 &mdash; inaugural year</h2>
         <p class="year-meta">31 October &ndash; 14 November 2024 &middot; The Alchemy Experiment, Glasgow</p>
         <p>The first exhibition showed finalists&rsquo; work from the Clydebank area and was extended by a week after popular demand. The inaugural winner was Frankie Thom, for the work <em>Reflections</em>.</p>
+        <div class="photo-row">
+          <figure><img src="assets/media/exh2024-wall.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Pupils' paintings and drawings hung on the brick wall at the 2024 exhibition."></figure>
+          <figure><img src="assets/media/exh2024-room.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Guests filling the room at the 2024 opening night, artworks lining both walls."><figcaption>The 2024 opening night</figcaption></figure>
+          <figure><img src="assets/media/exh2024-crowd.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="A visitor photographing a pupil's cityscape drawing at the 2024 exhibition."></figure>
+        </div>
         <blockquote>
           <p>&ldquo;You should take huge pride in what you&rsquo;ve created, which I&rsquo;m sure will be a successful and rewarding event for aspiring young artists for many years to come.&rdquo;</p>
           <cite>Father of 2024 winner</cite>
