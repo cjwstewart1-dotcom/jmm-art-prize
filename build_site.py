@@ -127,9 +127,6 @@ def head(title, description, path):
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -167,6 +164,7 @@ FOOTER = """<footer class="site-footer">
       <a href="art-prize.html">The Art Prize</a>
       <a href="about.html#get-involved">Contact</a>
       <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">Instagram</a>
+      <a href="privacy.html">Privacy</a>
     </nav>
     <p class="footer-fine">&copy; <span id="year">2026</span> The Jackie Marno-McGoldrick Art Prize &middot; Glasgow, Scotland.<br>Artwork reproduced by kind permission of the artists and their families.</p>
   </div>
@@ -649,6 +647,57 @@ MEDIA_PAGE = f"""
 """
 
 
+PRIVACY = """
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Privacy</p>
+      <h1>Privacy policy</h1>
+      <p class="lede">How this website handles information. In short: it sets no cookies, runs no analytics, and only collects anything if you choose to send us a message.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>Who we are</h2>
+      <p>This website (<strong>jmmartprize.co.uk</strong>) is run by the organisers of The Jackie Marno-McGoldrick Art Prize, a volunteer-run annual art competition and exhibition in Glasgow. For data-protection purposes we are the &ldquo;controller&rdquo; for the limited information this site handles.</p>
+
+      <h2>When you visit the site</h2>
+      <p>The site is hosted on GitHub Pages (GitHub, Inc.). Like any web host, GitHub&rsquo;s servers automatically process technical information &mdash; such as your IP address and browser type &mdash; in order to serve the pages and guard against abuse. We do not have access to those logs and do not use them. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub privacy statement</a>.</p>
+      <p>This site sets <strong>no cookies</strong> and uses <strong>no analytics, tracking or advertising</strong>. Fonts and all other files are served from the site itself, so simply reading these pages involves no third-party requests.</p>
+
+      <h2>When you contact us</h2>
+      <p>The form on the <a href="about.html#get-involved">Partner with us</a> page collects your <strong>name</strong>, <strong>email address</strong>, <strong>organisation</strong> (optional) and <strong>message</strong>. It is delivered using Formspree (Formspree, Inc.), which forwards it to our inbox.</p>
+      <p>We use this information only to reply to you and to run the prize (partnerships, sponsorship and general enquiries). Our lawful basis is our legitimate interest in operating the competition and responding to people who get in touch. We keep messages for as long as they are needed for that purpose and delete them when they are no longer relevant. See the <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener">Formspree privacy policy</a>.</p>
+
+      <h2>Photographs and pupils&rsquo; artwork</h2>
+      <p>The site shows photographs from exhibition events and images of pupils&rsquo; competition entries. Entries are grouped only by school and year group &mdash; we do <strong>not</strong> publish pupils&rsquo; names alongside their work. Photographs and artwork are used with permission.</p>
+      <p>If you appear in a photograph, or your child&rsquo;s artwork is shown, and you would like it removed, please contact us and we will take it down promptly.</p>
+
+      <h2>Links to other sites</h2>
+      <p>We link to our Instagram page and to partner and news websites. If you follow those links, the other organisation&rsquo;s privacy policy applies. We have no control over, and take no responsibility for, their content or practices.</p>
+
+      <h2>Your rights</h2>
+      <p>Under UK data-protection law you can ask us to:</p>
+      <ul class="tick">
+        <li>confirm what information we hold about you, and give you a copy</li>
+        <li>correct information that is wrong or incomplete</li>
+        <li>delete information we no longer need to keep</li>
+        <li>restrict or object to how we use it</li>
+      </ul>
+      <p>To exercise any of these, contact us using the details below. You also have the right to complain to the Information Commissioner&rsquo;s Office (<a href="https://ico.org.uk/" target="_blank" rel="noopener">ico.org.uk</a>).</p>
+
+      <h2>Contact</h2>
+      <p>Send a message through the form on the <a href="about.html#get-involved">Partner with us</a> page, or message us on <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">Instagram</a>.</p>
+      <!-- When a jmmartprize.co.uk mailbox is set up, add a line here: "or email privacy@jmmartprize.co.uk". -->
+
+      <h2>Changes to this policy</h2>
+      <p>We may update this policy from time to time. The date below shows when it was last changed.</p>
+      <p class="muted">Last updated: 31 August 2026.</p>
+    </div>
+  </section>
+"""
+
+
 def build_previous_work(manifest):
     if manifest:
         entries_block = f"""
@@ -693,7 +742,8 @@ def build_previous_work(manifest):
 
 def build_sitemap(extra_paths):
     urls = ["", "about.html", "jackies-story.html", "art-prize.html",
-            "exhibitions.html", "previous-work.html", "media-coverage.html"] + list(extra_paths)
+            "exhibitions.html", "previous-work.html", "media-coverage.html",
+            "privacy.html"] + list(extra_paths)
     items = "\n".join(
         f"  <url><loc>{BASE_URL}/{u}</loc></url>" for u in urls
     )
@@ -730,6 +780,9 @@ def main():
         ("media-coverage.html", "Media coverage | The Jackie Marno-McGoldrick Art Prize",
          "Press and media coverage of the Jackie Marno-McGoldrick Art Prize and of Jackie herself, in print and online.",
          MEDIA_PAGE, None, False),
+        ("privacy.html", "Privacy policy | The Jackie Marno-McGoldrick Art Prize",
+         "How jmmartprize.co.uk handles information: no cookies, no analytics, and details of the get-involved contact form.",
+         PRIVACY, None, False),
     ]
 
     entries_pages = [

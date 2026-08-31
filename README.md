@@ -26,8 +26,16 @@ put any clipping image in `assets/media/`, re-run `python3 build_site.py`.
 
 ## Fonts & colours
 
-Headings use **Lora** (loaded from Google Fonts). Colours are CSS variables at the
-top of `styles.css` (`--gold`, `--rust`, `--paper`, etc.) — change them in one place.
+Headings use **Lora**, self-hosted from `assets/fonts/` (SIL Open Font License) via
+`@font-face` at the top of `styles.css` — no Google Fonts request, so the site makes
+no third-party calls at all. Colours are CSS variables at the top of `styles.css`
+(`--gold`, `--rust`, `--paper`, etc.) — change them in one place.
+
+## Privacy policy
+
+`privacy.html` (generated from the `PRIVACY` string in `build_site.py`), linked from
+the footer of every page. If you set up a `jmmartprize.co.uk` mailbox, add it to the
+"Contact" section — there's an HTML comment marking the spot.
 
 ## Editing content — two ways
 
