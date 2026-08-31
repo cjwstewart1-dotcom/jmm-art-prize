@@ -171,36 +171,11 @@ h3 { font-size: clamp(1.15rem, 1.05rem + 0.7vw, 1.45rem); }
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* "Partner with us" CTA — far right on desktop, under the name on mobile */
-.nav-cta {
-  position: absolute;
-  right: var(--pad);
-  top: 1rem;
-  background: var(--rust-deep);
-  color: var(--paper);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.01em;
-  padding: 0.5rem 1.05rem;
-  border-radius: 5px;
-  white-space: nowrap;
-  transition: background 0.18s ease;
-}
-.nav-cta:hover { background: var(--ink); color: var(--paper); }
-
 @media (max-width: 760px) {
   .header-inner { align-items: center; }
   .nav-toggle { display: block; }
-  .nav-cta {
-    position: static;
-    order: 2;
-    margin-top: 0.55rem;
-    font-size: 0.9rem;
-  }
   .primary-nav {
     display: none;
-    order: 3;
     flex-direction: column;
     align-items: center;
     width: 100%;

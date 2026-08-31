@@ -25,6 +25,8 @@ NAV = [
     ("art-prize.html", "The Art Prize"),
     ("exhibitions.html", "Previous exhibitions"),
     ("previous-work.html", "Previous work"),
+    ("media-coverage.html", "Media coverage"),
+    ("about.html#get-involved", "Partner with us"),
 ]
 
 BASE_URL = "https://jmmartprize.co.uk"
@@ -64,7 +66,7 @@ MEDIA = [
 ]
 
 
-def media_section():
+def media_grid():
     cards = []
     for outlet, headline, year, url, img in MEDIA:
         img_html = ""
@@ -82,18 +84,7 @@ def media_section():
             f'        </span>\n'
             f'      </a>'
         )
-    return (
-        '  <section class="section section-alt" id="media-coverage">\n'
-        '    <div class="wrap">\n'
-        '      <p class="eyebrow">Media coverage</p>\n'
-        '      <h2>The prize in the press</h2>\n'
-        '      <p class="section-lede">Selected coverage of the prize and of Jackie, in print and online.</p>\n'
-        '      <div class="press-grid">\n'
-        + "\n".join(cards) +
-        '\n      </div>\n'
-        '    </div>\n'
-        '  </section>\n'
-    )
+    return '      <div class="press-grid">\n' + "\n".join(cards) + '\n      </div>'
 
 
 SCHOOL_ORDER = [
@@ -158,7 +149,6 @@ def header(current):
     return f"""<header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="index.html">The Jackie Marno-McGoldrick<span class="brand-line2">Art Prize</span></a>
-    <a class="nav-cta" href="about.html#get-involved">Partner with us</a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -435,7 +425,6 @@ ABOUT = f"""
     </div>
   </section>
 
-{media_section()}
   <section class="section section-contact" id="get-involved">
     <div class="wrap contact-grid">
       <div class="contact-intro">
@@ -616,6 +605,23 @@ EXHIBITIONS = """
 """
 
 
+MEDIA_PAGE = f"""
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Media coverage</p>
+      <h1>The prize in the press</h1>
+      <p class="lede">Selected coverage of the prize and of Jackie, in print and online.</p>
+    </div>
+  </section>
+
+  <section class="section" id="media-coverage">
+    <div class="wrap">
+{media_grid()}
+    </div>
+  </section>
+"""
+
+
 def build_previous_work(manifest):
     if manifest:
         entries_block = f"""
@@ -660,7 +666,7 @@ def build_previous_work(manifest):
 
 def build_sitemap(extra_paths):
     urls = ["", "about.html", "jackies-story.html", "art-prize.html",
-            "exhibitions.html", "previous-work.html"] + list(extra_paths)
+            "exhibitions.html", "previous-work.html", "media-coverage.html"] + list(extra_paths)
     items = "\n".join(
         f"  <url><loc>{BASE_URL}/{u}</loc></url>" for u in urls
     )
@@ -694,6 +700,9 @@ def main():
         ("previous-work.html", "Previous work | The Jackie Marno-McGoldrick Art Prize",
          "Jackie Marno-McGoldrick's drawings and paintings, and pupils' work from past competitions, shown by year and school.",
          build_previous_work(manifest), None, True),
+        ("media-coverage.html", "Media coverage | The Jackie Marno-McGoldrick Art Prize",
+         "Press and media coverage of the Jackie Marno-McGoldrick Art Prize and of Jackie herself, in print and online.",
+         MEDIA_PAGE, None, False),
     ]
 
     entries_pages = [
