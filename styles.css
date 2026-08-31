@@ -537,48 +537,56 @@ blockquote cite {
   .photo-row { grid-template-columns: 1fr; max-width: 440px; }
 }
 
-/* Partners */
-.partner-list { list-style: none; margin: 0 0 2rem; padding: 0; }
-.partner-list li {
-  border-bottom: 1px solid var(--line);
-}
-.partner-list li a {
+/* Partners - centred logo + name cards */
+.partner-grid {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.25rem, 4vw, 2.75rem);
+  margin: 1.75rem 0 2rem;
+}
+.partner {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: clamp(0.9rem, 3vw, 1.6rem);
-  padding: 0.85rem 0;
+  text-align: center;
+  gap: 0.75rem;
+  width: clamp(132px, 40vw, 168px);
   text-decoration: none;
   color: var(--ink);
 }
-.partner-list li a:hover .partner-name { color: var(--rust-deep); }
 .partner-logo {
-  flex: 0 0 auto;
-  height: 56px;
-  display: inline-flex;
+  width: 100%;
+  height: 92px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 14px;
+  padding: 14px 18px;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
+  transition: box-shadow 0.16s ease, transform 0.16s ease;
+}
+.partner:hover .partner-logo,
+.partner:focus-visible .partner-logo {
+  box-shadow: 0 16px 28px -18px rgba(38, 32, 20, 0.55);
+  transform: translateY(-2px);
 }
 .partner-logo img {
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
-  max-width: 190px;
+  height: auto;
   object-fit: contain;
   display: block;
 }
 .partner-name {
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(1.1rem, 0.95rem + 1vw, 1.5rem);
-  line-height: 1.2;
+  font-size: 0.95rem;
+  line-height: 1.25;
 }
-@media (max-width: 420px) {
-  .partner-logo { height: 46px; padding: 5px 10px; }
-  .partner-logo img { max-width: 140px; }
-}
+.partner:hover .partner-name { color: var(--rust-deep); }
 
 /* Reach / campaign stat */
 .stat {

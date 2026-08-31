@@ -36,7 +36,7 @@ BASE_URL = "https://jmmartprize.co.uk"
 PARTNERS = [
     ("The Glasgow School of Art", "https://www.gsa.ac.uk/", "glasgow-school-of-art.png"),
     ("West Dunbartonshire Council", "https://www.west-dunbarton.gov.uk/", "west-dunbartonshire-council.png"),
-    ("Partick Thistle Football Club", "https://ptfc.co.uk/", "partick-thistle-fc.png"),
+    ("Partick Thistle Football Club", "https://ptfc.co.uk/", "partick-thistle-fc.svg"),
     ("Cass Art", "https://www.cassart.co.uk/", "cass-art.png"),
     ("The Alchemy Experiment", "https://www.alchemyexperiment.com/", "the-alchemy-experiment.png"),
 ]
@@ -46,7 +46,7 @@ REACH = {"2024": 2_292_500, "2025": 2_512_023}
 
 TICKER_TEXT = "Entries to the 2026 JMM Art Prize are now open"
 
-# Media coverage — (outlet, headline, year, url, image or None)
+# Media coverage - (outlet, headline, year, url, image or None)
 MEDIA = [
     ("Glasgow Times", "Jackie Marno-McGoldrick Prize held in Glasgow for second year",
      "2025", "https://www.glasgowtimes.co.uk/news/scottish-news/25581673.jackie-marno-mcgoldrick-prize-held-glasgow-second-year/",
@@ -108,13 +108,14 @@ STAGE_ORDER = ["Primary", "S1", "S2", "S3", "S4", "S5", "S6", "S5–6", ""]
 
 
 def partner_list():
-    lis = "\n".join(
-        f'        <li><a href="{url}" target="_blank" rel="noopener">'
-        f'<span class="partner-logo"><img src="assets/partners/{logo}" alt="" loading="lazy" decoding="async"></span>'
-        f'<span class="partner-name">{html.escape(name)}</span></a></li>'
+    items = "\n".join(
+        f'        <a class="partner" href="{url}" target="_blank" rel="noopener">\n'
+        f'          <span class="partner-logo"><img src="assets/partners/{logo}" alt="{html.escape(name)} logo" loading="lazy" decoding="async"></span>\n'
+        f'          <span class="partner-name">{html.escape(name)}</span>\n'
+        f'        </a>'
         for name, url, logo in PARTNERS
     )
-    return f'      <ul class="partner-list">\n{lis}\n      </ul>'
+    return f'      <div class="partner-grid">\n{items}\n      </div>'
 
 
 def head(title, description, path):
@@ -197,7 +198,7 @@ def ticker():
     )
     return (
         '<div class="ticker">\n'
-        f'  <a href="art-prize.html" aria-label="{TICKER_TEXT} &mdash; how to enter">'
+        f'  <a href="art-prize.html" aria-label="{TICKER_TEXT} - how to enter">'
         f'<span class="ticker-track" aria-hidden="true">{spans}</span></a>\n'
         '</div>\n'
     )
@@ -295,7 +296,7 @@ def render_school_grid(year, slug, s):
         if staged and stage:
             blocks.append(f'      <h2 class="stage">{stage}</h2>')
         blocks.append('      <div class="entry-grid">')
-        alt_base = f"Pupil artwork — {s['label']}, {year}"
+        alt_base = f"Pupil artwork - {s['label']}, {year}"
         for im in imgs:
             alt = alt_base + (f", {stage}" if stage else "")
             blocks.append(
@@ -335,7 +336,7 @@ def build_entries_pages(manifest):
       {crumbs(("Previous work", "previous-work.html"), (str(year), None))}
       <p class="eyebrow">Previous work</p>
       <h1>{year} competition entries</h1>
-      <p class="lede">{total} works from {len(schools)} schools. No names &mdash; choose a school to see the work, grouped by year group.</p>
+      <p class="lede">{total} works from {len(schools)} schools. No names - choose a school to see the work, grouped by year group.</p>
     </div>
   </section>
 
@@ -358,7 +359,7 @@ def build_entries_pages(manifest):
             s = schools[slug]
             pages.append((
                 school_page_name(year, slug),
-                f"{s['label']} — {year} entries | The Jackie Marno-McGoldrick Art Prize",
+                f"{s['label']} - {year} entries | The Jackie Marno-McGoldrick Art Prize",
                 f"{s['label']} pupils' work from the {year} Jackie Marno-McGoldrick Art Prize, shown by year group, without names.",
                 render_school_grid(year, slug, s), True,
             ))
@@ -397,7 +398,7 @@ HOME = f"""
       <div class="announce-copy">
         <p class="eyebrow">Announcement &middot; 2026</p>
         <h2>This year&rsquo;s competition is confirmed</h2>
-        <p>The Jackie Marno-McGoldrick Art Prize is going ahead for 2026. We&rsquo;re keeping the competition true to its roots &mdash; free to enter, open to every school pupil across West Dunbartonshire, and built around a real exhibition in Glasgow&rsquo;s West End &mdash; and continuing the work Jackie&rsquo;s son, Callum Stewart, started in 2024.</p>
+        <p>The Jackie Marno-McGoldrick Art Prize is going ahead for 2026. We&rsquo;re keeping the competition true to its roots - free to enter, open to every school pupil across West Dunbartonshire, and built around a real exhibition in Glasgow&rsquo;s West End - and continuing the work Jackie&rsquo;s son, Callum Stewart, started in 2024.</p>
         <p>The same idea sits behind it as it did on day one: give young people a wall, an audience, and the message that their work matters.</p>
         <dl class="announce-facts">
           <div><dt>Exhibiting</dt><dd>23 October &ndash; 6 November 2026</dd></div>
@@ -420,7 +421,7 @@ HOME = f"""
       <div class="card-grid">
         <div class="card">
           <h3>Open to every pupil</h3>
-          <p>Free to enter, open to school pupils up to S6 across West Dunbartonshire, in any medium &mdash; painting, drawing, photography, ceramics, design and more.</p>
+          <p>Free to enter, open to school pupils up to S6 across West Dunbartonshire, in any medium - painting, drawing, photography, ceramics, design and more.</p>
           <p><a href="art-prize.html">How it works &rarr;</a></p>
         </div>
         <div class="card">
@@ -459,14 +460,14 @@ ABOUT = f"""
   <section class="section">
     <div class="wrap prose">
       <h2>Why it exists</h2>
-      <p>The Jackie Marno-McGoldrick Art Prize was founded in 2024 by Callum Stewart in memory of his mother, Jackie &mdash; an artist and art teacher at Clydebank High School for nearly two decades. Jackie spent her career making sure that every pupil, whatever their circumstances, had the same chance to be taken seriously as an artist. The prize is an attempt to keep doing that.</p>
+      <p>The Jackie Marno-McGoldrick Art Prize was founded in 2024 by Callum Stewart in memory of his mother, Jackie - an artist and art teacher at Clydebank High School for nearly two decades. Jackie spent her career making sure that every pupil, whatever their circumstances, had the same chance to be taken seriously as an artist. The prize is an attempt to keep doing that.</p>
       <blockquote>
         <p>&ldquo;Mum was really good at giving kids a voice and making sure that everyone had the same opportunities, so I wanted to make sure that keeps going.&rdquo;</p>
         <cite>Callum Stewart, founder</cite>
       </blockquote>
 
       <h2>How it works</h2>
-      <p>Each year pupils across West Dunbartonshire enter work through their school art departments. A panel of judges &mdash; art teachers and people who knew Jackie and her work &mdash; selects finalists and category winners. Finalists&rsquo; work is then shown in a public exhibition in Glasgow&rsquo;s West End, with an invitation-only opening night for pupils, families and teachers. Full details are on <a href="art-prize.html">The Art Prize</a> page.</p>
+      <p>Each year pupils across West Dunbartonshire enter work through their school art departments. A panel of judges - art teachers and people who knew Jackie and her work - selects finalists and category winners. Finalists&rsquo; work is then shown in a public exhibition in Glasgow&rsquo;s West End, with an invitation-only opening night for pupils, families and teachers. Full details are on <a href="art-prize.html">The Art Prize</a> page.</p>
 
       <h2>Partners &amp; supporters</h2>
       <p>The prize runs on donated prizes, space, materials and time. Supporters have included:</p>
@@ -480,7 +481,7 @@ ABOUT = f"""
         <p class="eyebrow">Get involved</p>
         <h2>Partner, sponsor or support the prize</h2>
         <p>Every prize, every wall and every opening night comes from someone choosing to help. If you&rsquo;d like to be part of the next Jackie Marno-McGoldrick Art Prize as a partner, sponsor or supporter, send a message below and we&rsquo;ll be in touch.</p>
-        <p class="contact-note"><strong>Are you a pupil or parent wanting to enter?</strong> Entries are handled by school art departments &mdash; please speak to your school&rsquo;s art teacher, or send a message and we&rsquo;ll point you the right way.</p>
+        <p class="contact-note"><strong>Are you a pupil or parent wanting to enter?</strong> Entries are handled by school art departments - please speak to your school&rsquo;s art teacher, or send a message and we&rsquo;ll point you the right way.</p>
       </div>
       <!--
         Submissions go to Formspree form xgaeoqrg. The delivery email is set in the
@@ -504,7 +505,7 @@ ABOUT = f"""
           <label for="message">Message</label>
           <textarea id="message" name="message" rows="5" required></textarea>
         </p>
-        <input type="hidden" name="_subject" value="JMM Art Prize &mdash; website enquiry">
+        <input type="hidden" name="_subject" value="JMM Art Prize - website enquiry">
         <p class="field-hp" aria-hidden="true">
           <label>Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
         </p>
@@ -528,9 +529,9 @@ STORY = """
     <div class="wrap story-grid">
       <div class="prose">
         <p>Jackie studied art and graphic design at Cardonald College and went on to win first place in an International Fine Art Award for Women Artists in the 1990s. She later trained as a teacher at Jordanhill College and joined the art department at Clydebank High School, where she taught for close to two decades. In 2019 her pupils voted her their best teacher.</p>
-        <p>She was known for making learning feel like an adventure, and for refusing to let a pupil&rsquo;s background decide how far they could go. Colleagues described someone who &ldquo;would light up every room she entered&rdquo;. One parent credited her belief in their son &mdash; who went on to a master&rsquo;s degree in art &mdash; entirely to her.</p>
+        <p>She was known for making learning feel like an adventure, and for refusing to let a pupil&rsquo;s background decide how far they could go. Colleagues described someone who &ldquo;would light up every room she entered&rdquo;. One parent credited her belief in their son - who went on to a master&rsquo;s degree in art - entirely to her.</p>
         <p>Jackie kept her own practice going throughout: expressive, figurative drawing and painting, often of the human form, worked in charcoal and heavy, worked-back colour.</p>
-        <p>She passed away in March 2023 after an illness. The following year her son, Callum Stewart, founded the Jackie Marno-McGoldrick Art Prize so that the thing she cared about most &mdash; young people being taken seriously as artists &mdash; would carry on.</p>
+        <p>She passed away in March 2023 after an illness. The following year her son, Callum Stewart, founded the Jackie Marno-McGoldrick Art Prize so that the thing she cared about most - young people being taken seriously as artists - would carry on.</p>
         <blockquote>
           <p>&ldquo;She was the best of us. An inspiration.&rdquo;</p>
           <cite>A former colleague, Clydebank High School</cite>
@@ -570,7 +571,7 @@ PRIZE = """
       <div class="card-grid">
         <div class="card">
           <h3>Who can enter</h3>
-          <p>Pupils up to S6 (under 18) at participating West Dunbartonshire schools &mdash; including Clydebank High School, St Peter the Apostle High School, Dumbarton Academy and Vale of Leven Academy.</p>
+          <p>Pupils up to S6 (under 18) at participating West Dunbartonshire schools - including Clydebank High School, St Peter the Apostle High School, Dumbarton Academy and Vale of Leven Academy.</p>
         </div>
         <div class="card">
           <h3>Categories</h3>
@@ -604,7 +605,7 @@ PRIZE = """
           <li><strong>Late October</strong><span>Opening night for finalists, families and teachers; winners announced.</span></li>
           <li><strong>Late October &ndash; November</strong><span>Public exhibition in Glasgow&rsquo;s West End, roughly two weeks.</span></li>
         </ol>
-        <p class="muted">Exact dates change year to year &mdash; <a href="about.html#get-involved">get in touch</a> or follow <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">@jmm_art_prize_glasgow</a> for the current round.</p>
+        <p class="muted">Exact dates change year to year - <a href="about.html#get-involved">get in touch</a> or follow <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">@jmm_art_prize_glasgow</a> for the current round.</p>
       </div>
     </div>
   </section>
@@ -614,17 +615,17 @@ EXHIBITIONS = """
   <section class="page-head">
     <div class="wrap">
       <p class="eyebrow">Previous exhibitions</p>
-      <h1>Two years in Glasgow&rsquo;s West End</h1>
-      <p class="lede">Both exhibitions have been held at The Alchemy Experiment, 157 Byres Road, Glasgow &mdash; a gallery, events space and artist shop.</p>
+      <h1>Two years in Glasgow&rsquo;s West End has seen a 4.8 million estimated reach across both prizes</h1>
+      <p class="lede">Both exhibitions have been held at The Alchemy Experiment, on Byres Road, Glasgow. An inclusive arts venue and collective creating a space for art and creativity in Glasgow.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
       <article class="year">
-        <h2>2025 &mdash; second year</h2>
+        <h2>2025 - second year</h2>
         <p class="year-meta">31 October &ndash; 13 November 2025 &middot; The Alchemy Experiment, Glasgow</p>
-        <p>Entries were up 96% on the first year. With the support of partners and sponsors, eleven prizes were awarded across the four categories &mdash; roughly one in every eleven entries. The exhibition ran for two weeks and drew pupils, families, teachers and West End visitors through the doors. Work came from Clydebank High School, St Peter the Apostle High School, Dumbarton Academy and Vale of Leven Academy.</p>
+        <p>Entries were up 96% on the first year. With the support of partners and sponsors, eleven prizes were awarded across the four categories - roughly one in every eleven entries. The exhibition ran for two weeks and drew pupils, families, teachers and West End visitors through the doors. Work came from Clydebank High School, St Peter the Apostle High School, Dumbarton Academy and Vale of Leven Academy.</p>
         <p class="stat"><span class="stat-num">2,512,023</span> estimated reach of the 2025 campaign across local press and social media</p>
         <div class="photo-row">
           <figure><img src="assets/alchemy-exterior.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Crowds inside The Alchemy Experiment on Byres Road at the 2025 opening, seen through the window beneath the neon sign."></figure>
@@ -635,7 +636,7 @@ EXHIBITIONS = """
       </article>
 
       <article class="year">
-        <h2>2024 &mdash; inaugural year</h2>
+        <h2>2024 - inaugural year</h2>
         <p class="year-meta">31 October &ndash; 14 November 2024 &middot; The Alchemy Experiment, Glasgow</p>
         <p>The first exhibition showed finalists&rsquo; work from the Clydebank area and was extended by a week after popular demand. The inaugural winner was Frankie Thom, for the work <em>Reflections</em>.</p>
         <p class="stat"><span class="stat-num">2,292,500</span> estimated reach of the 2024 campaign across local press and social media</p>
@@ -688,7 +689,7 @@ PRIVACY = """
       <p>This website (<strong>jmmartprize.co.uk</strong>) is run by the organisers of The Jackie Marno-McGoldrick Art Prize, a volunteer-run annual art competition and exhibition in Glasgow. For data-protection purposes we are the &ldquo;controller&rdquo; for the limited information this site handles.</p>
 
       <h2>When you visit the site</h2>
-      <p>The site is hosted on GitHub Pages (GitHub, Inc.). Like any web host, GitHub&rsquo;s servers automatically process technical information &mdash; such as your IP address and browser type &mdash; in order to serve the pages and guard against abuse. We do not have access to those logs and do not use them. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub privacy statement</a>.</p>
+      <p>The site is hosted on GitHub Pages (GitHub, Inc.). Like any web host, GitHub&rsquo;s servers automatically process technical information - such as your IP address and browser type - in order to serve the pages and guard against abuse. We do not have access to those logs and do not use them. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub privacy statement</a>.</p>
       <p>This site sets <strong>no cookies</strong> and uses <strong>no analytics, tracking or advertising</strong>. Fonts and all other files are served from the site itself, so simply reading these pages involves no third-party requests.</p>
 
       <h2>When you contact us</h2>
@@ -696,7 +697,7 @@ PRIVACY = """
       <p>We use this information only to reply to you and to run the prize (partnerships, sponsorship and general enquiries). Our lawful basis is our legitimate interest in operating the competition and responding to people who get in touch. We keep messages for as long as they are needed for that purpose and delete them when they are no longer relevant. See the <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener">Formspree privacy policy</a>.</p>
 
       <h2>Photographs and pupils&rsquo; artwork</h2>
-      <p>The site shows photographs from exhibition events and images of pupils&rsquo; competition entries. Entries are grouped only by school and year group &mdash; we do <strong>not</strong> publish pupils&rsquo; names alongside their work. Photographs and artwork are used with permission.</p>
+      <p>The site shows photographs from exhibition events and images of pupils&rsquo; competition entries. Entries are grouped only by school and year group - we do <strong>not</strong> publish pupils&rsquo; names alongside their work. Photographs and artwork are used with permission.</p>
       <p>If you appear in a photograph, or your child&rsquo;s artwork is shown, and you would like it removed, please contact us and we will take it down promptly.</p>
 
       <h2>Links to other sites</h2>
@@ -727,7 +728,7 @@ PRIVACY = """
 def build_previous_work(manifest):
     if manifest:
         entries_block = f"""
-      <p class="section-lede">Pupils&rsquo; work entered into past competitions, shown by year and school &mdash; without names. Choose a year:</p>
+      <p class="section-lede">Pupils&rsquo; work entered into past competitions, shown by year and school - without names. Choose a year:</p>
 {render_year_cards(manifest)}
 """
     else:
