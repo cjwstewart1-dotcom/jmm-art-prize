@@ -543,7 +543,8 @@ blockquote cite {
   flex-wrap: wrap;
   justify-content: center;
   gap: clamp(1.25rem, 4vw, 2.75rem);
-  margin: 1.75rem 0 2rem;
+  margin: 1.75rem auto 2rem;
+  max-width: 620px;   /* holds it to 3 on the top row, 2 centred below */
 }
 .partner {
   display: flex;
