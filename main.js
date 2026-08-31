@@ -75,9 +75,9 @@
   if (prefersReduced || !("IntersectionObserver" in window)) { return; }
 
   var targets = document.querySelectorAll(
-    ".section > .wrap > h2, .section > .wrap > .card-grid, .section > .wrap > .prose," +
-    " .section > .wrap > .partner-list, .hero-copy, .hero-figure, .story-grid, .photo-row," +
-    " .entry-year"
+    ".section > .wrap > h2:not(.stage), .section > .wrap > .card-grid," +
+    " .section > .wrap > .prose, .section > .wrap > .partner-list," +
+    " .section > .wrap > .year-cards, .hero-copy, .hero-figure, .story-grid, .photo-row"
   );
   targets.forEach(function (el) { el.classList.add("reveal"); });
   var io = new IntersectionObserver(function (entries) {

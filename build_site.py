@@ -2,16 +2,21 @@
 """Assembles the static pages for the JMM Art Prize site from one shared shell.
 Output is plain static HTML in /Users/user/Desktop/jmm-art-prize/. No runtime build.
 
-The "Previous work" gallery of competition entries is generated from
-assets/entries/manifest.json (produced by tools/process_entries.py). Pupil names
-never appear anywhere: images are grouped only by year -> school -> stage.
+The "Previous work" area is generated from assets/entries/manifest.json
+(produced by tools/process_entries.py):
+
+    previous-work.html                          landing + Jackie's artwork + year cards
+    entries-<year>.html                         one page per year, cards per school
+    entries-<year>-<school-slug>.html           one page per school/year, the grid
+
+Pupil names never appear anywhere: images are grouped only by year -> school -> stage.
 """
 
 import html
 import json
 import pathlib
 
-SITE = pathlib.Path("/Users/user/Desktop/jmm-art-prize")
+SITE = pathlib.Path(__file__).resolve().parent
 
 NAV = [
     ("index.html", "Home"),
@@ -24,6 +29,15 @@ NAV = [
 
 BASE_URL = "https://jmmartprize.co.uk"
 
+# Submissions come in with names to strip; here they are only ever grouped.
+PARTNERS = [
+    ("The Glasgow School of Art", "https://www.gsa.ac.uk/"),
+    ("West Dunbartonshire Council", "https://www.west-dunbarton.gov.uk/"),
+    ("Partick Thistle Football Club", "https://ptfc.co.uk/"),
+    ("Cass Art", "https://www.cassart.co.uk/"),
+    ("The Alchemy Experiment", "https://www.alchemyexperiment.com/"),
+]
+
 SCHOOL_ORDER = [
     "clydebank-high-school",
     "st-peter-the-apostle",
@@ -33,6 +47,17 @@ SCHOOL_ORDER = [
     "gavinburn-primary",
 ]
 STAGE_ORDER = ["Primary", "S1", "S2", "S3", "S4", "S5", "S6", "S5–6", ""]
+
+# The get-involved form delivers wherever Formspree is configured to send it.
+# The address is set in the Formspree dashboard, never on the page.
+
+
+def partner_list():
+    lis = "\n".join(
+        f'        <li><a href="{url}" target="_blank" rel="noopener">{html.escape(name)}</a></li>'
+        for name, url in PARTNERS
+    )
+    return f'      <ul class="partner-list">\n{lis}\n      </ul>'
 
 
 def head(title, description, path):
@@ -75,6 +100,7 @@ def header(current):
     return f"""<header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="index.html">The Jackie Marno-McGoldrick<span class="brand-line2">Art Prize</span></a>
+    <a class="nav-cta" href="about.html#get-involved">Partner with us</a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -91,9 +117,8 @@ FOOTER = """<footer class="site-footer">
     <p class="footer-dedication">In memory of Jackie Marno-McGoldrick<br>artist and teacher, Clydebank High School</p>
     <nav class="footer-links" aria-label="Footer">
       <a href="art-prize.html">The Art Prize</a>
-      <a href="about.html">Get involved</a>
+      <a href="about.html#get-involved">Contact</a>
       <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">Instagram</a>
-      <a href="mailto:callum_jstewart@hotmail.com">Email</a>
     </nav>
     <p class="footer-fine">&copy; <span id="year">2026</span> The Jackie Marno-McGoldrick Art Prize &middot; Glasgow, Scotland.<br>Artwork reproduced by kind permission of the artists and their families.</p>
   </div>
@@ -109,68 +134,170 @@ LIGHTBOX = """<div id="lightbox" class="lightbox" aria-hidden="true">
 """
 
 
-def page(path, title, description, main_html, lightbox=False):
+def page(path, title, description, main_html, current=None, lightbox=False):
     body = f'<main id="main">\n{main_html}\n</main>\n'
     if lightbox:
         body += LIGHTBOX
-    return head(title, description, path) + header(path) + body + FOOTER + \
+    return head(title, description, path) + header(current or path) + body + FOOTER + \
         '<script src="main.js"></script>\n</body>\n</html>\n'
 
 
-# ---------------------------------------------------------------- entries gallery
+# ---------------------------------------------------------------- entries pages
 
-def render_entries():
+def load_manifest():
     mpath = SITE / "assets" / "entries" / "manifest.json"
     if not mpath.exists():
-        return ('<p class="muted">The competition entries gallery will appear here once the '
-                'images have been processed.</p>')
-    manifest = json.loads(mpath.read_text(encoding="utf-8"))
+        return {}
+    return json.loads(mpath.read_text(encoding="utf-8"))
 
-    jump = " &middot; ".join(
-        f'<a href="#entries-{y}">{y} entries</a>' for y in sorted(manifest, reverse=True)
-    )
-    out = [f'<p class="entry-jump">Jump to: <a href="#jackies-artwork">Jackie&rsquo;s artwork</a> &middot; {jump}</p>']
 
+def school_page_name(year, slug):
+    return f"entries-{year}-{slug}.html"
+
+
+def crumbs(*parts):
+    """parts: (label, href|None) tuples; last is current (no link)."""
+    out = []
+    for label, href in parts:
+        if href:
+            out.append(f'<a href="{href}">{html.escape(label)}</a>')
+        else:
+            out.append(f'<span aria-current="page">{html.escape(label)}</span>')
+    return '<p class="crumbs">' + ' <span aria-hidden="true">&rsaquo;</span> '.join(out) + '</p>'
+
+
+def render_year_cards(manifest):
+    cards = []
     for year in sorted(manifest, reverse=True):
         schools = manifest[year]
         total = sum(s["count"] for s in schools.values())
-        out.append(f'<section class="entry-year">')
-        out.append(f'  <h2 id="entries-{year}">{year} entries</h2>')
-        out.append(f'  <p class="muted">{total} works, shown by school. No names &mdash; '
-                   f'just the school and year group.</p>')
+        # a representative thumbnail: first image of the first school in order
+        thumb = ""
+        for slug in SCHOOL_ORDER:
+            if slug in schools:
+                for stage in STAGE_ORDER:
+                    if stage in schools[slug]["groups"]:
+                        thumb = schools[slug]["groups"][stage][0]["thumb"]
+                        break
+            if thumb:
+                break
+        cards.append(
+            f'    <a class="year-card" href="entries-{year}.html">\n'
+            f'      <span class="year-card-img"><img src="{thumb}" loading="lazy" decoding="async" alt=""></span>\n'
+            f'      <span class="year-card-body"><strong>{year}</strong>'
+            f'<span class="muted">{total} works &middot; {len(schools)} schools</span></span>\n'
+            f'    </a>'
+        )
+    return '  <div class="year-cards">\n' + "\n".join(cards) + '\n  </div>'
+
+
+def render_school_cards(year, schools):
+    cards = []
+    for slug in SCHOOL_ORDER:
+        if slug not in schools:
+            continue
+        s = schools[slug]
+        thumb = ""
+        for stage in STAGE_ORDER:
+            if stage in s["groups"]:
+                thumb = s["groups"][stage][0]["thumb"]
+                break
+        noun = "work" if s["count"] == 1 else "works"
+        cards.append(
+            f'    <a class="year-card" href="{school_page_name(year, slug)}">\n'
+            f'      <span class="year-card-img"><img src="{thumb}" loading="lazy" decoding="async" alt=""></span>\n'
+            f'      <span class="year-card-body"><strong>{html.escape(s["label"])}</strong>'
+            f'<span class="muted">{s["count"]} {noun}</span></span>\n'
+            f'    </a>'
+        )
+    return '  <div class="year-cards">\n' + "\n".join(cards) + '\n  </div>'
+
+
+def render_school_grid(year, slug, s):
+    label = html.escape(s["label"])
+    groups = s["groups"]
+    staged = len(groups) > 1 or (len(groups) == 1 and "" not in groups)
+    blocks = []
+    for stage in STAGE_ORDER:
+        if stage not in groups:
+            continue
+        imgs = groups[stage]
+        if staged and stage:
+            blocks.append(f'      <h2 class="stage">{stage}</h2>')
+        blocks.append('      <div class="entry-grid">')
+        alt_base = f"Pupil artwork — {s['label']}, {year}"
+        for im in imgs:
+            alt = alt_base + (f", {stage}" if stage else "")
+            blocks.append(
+                f'        <a class="lb" href="{im["full"]}" aria-label="Enlarge artwork">'
+                f'<img src="{im["thumb"]}" loading="lazy" decoding="async" alt="{alt}"></a>'
+            )
+        blocks.append('      </div>')
+    noun = "work" if s["count"] == 1 else "works"
+    return f"""
+  <section class="page-head">
+    <div class="wrap">
+      {crumbs(("Previous work", "previous-work.html"), (str(year), f"entries-{year}.html"), (s["label"], None))}
+      <p class="eyebrow">{year} competition entries</p>
+      <h1>{label}</h1>
+      <p class="lede">{s["count"]} {noun}, shown by year group. No names. Click any image to enlarge.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+{chr(10).join(blocks)}
+      <p class="back-link"><a href="entries-{year}.html">&larr; All {year} schools</a></p>
+    </div>
+  </section>
+"""
+
+
+def build_entries_pages(manifest):
+    """Yields (path, title, description, main_html, lightbox) for every generated page."""
+    pages = []
+    for year in sorted(manifest, reverse=True):
+        schools = manifest[year]
+        total = sum(s["count"] for s in schools.values())
+        year_main = f"""
+  <section class="page-head">
+    <div class="wrap">
+      {crumbs(("Previous work", "previous-work.html"), (str(year), None))}
+      <p class="eyebrow">Previous work</p>
+      <h1>{year} competition entries</h1>
+      <p class="lede">{total} works from {len(schools)} schools. No names &mdash; choose a school to see the work, grouped by year group.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+{render_school_cards(year, schools)}
+      <p class="back-link"><a href="previous-work.html">&larr; Previous work</a></p>
+    </div>
+  </section>
+"""
+        pages.append((
+            f"entries-{year}.html",
+            f"{year} competition entries | The Jackie Marno-McGoldrick Art Prize",
+            f"Pupils' work entered into the {year} Jackie Marno-McGoldrick Art Prize, shown by school and year group, without names.",
+            year_main, False,
+        ))
         for slug in SCHOOL_ORDER:
             if slug not in schools:
                 continue
             s = schools[slug]
-            label = html.escape(s["label"])
-            noun = "work" if s["count"] == 1 else "works"
-            out.append('  <div class="school-block">')
-            out.append(f'    <h3>{label} <span class="count">{s["count"]} {noun}</span></h3>')
-            groups = s["groups"]
-            staged = len(groups) > 1 or (len(groups) == 1 and "" not in groups)
-            for stage in STAGE_ORDER:
-                if stage not in groups:
-                    continue
-                imgs = groups[stage]
-                if staged and stage:
-                    out.append(f'    <h4 class="stage">{stage}</h4>')
-                out.append('    <div class="entry-grid">')
-                alt_base = f"Pupil artwork — {s['label']}, {year}"
-                for im in imgs:
-                    alt = alt_base + (f", {stage}" if stage else "")
-                    out.append(
-                        f'      <a class="lb" href="{im["full"]}" aria-label="Enlarge artwork">'
-                        f'<img src="{im["thumb"]}" loading="lazy" decoding="async" alt="{alt}"></a>'
-                    )
-                out.append('    </div>')
-            out.append('  </div>')
-        out.append('</section>')
-    return "\n".join(out)
+            pages.append((
+                school_page_name(year, slug),
+                f"{s['label']} — {year} entries | The Jackie Marno-McGoldrick Art Prize",
+                f"{s['label']} pupils' work from the {year} Jackie Marno-McGoldrick Art Prize, shown by year group, without names.",
+                render_school_grid(year, slug, s), True,
+            ))
+    return pages
 
 
 # ---------------------------------------------------------------- page content
 
-HOME = """
+HOME = f"""
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
@@ -217,19 +344,13 @@ HOME = """
     <div class="wrap">
       <p class="eyebrow">Partners &amp; supporters</p>
       <h2>In association with</h2>
-      <ul class="partner-list">
-        <li>The Glasgow School of Art</li>
-        <li>West Dunbartonshire Council</li>
-        <li>Partick Thistle Football Club</li>
-        <li>Cass Art</li>
-        <li>The Alchemy Experiment</li>
-      </ul>
+{partner_list()}
       <p><a class="btn btn-primary" href="about.html">Partner with us</a></p>
     </div>
   </section>
 """
 
-ABOUT = """
+ABOUT = f"""
   <section class="page-head">
     <div class="wrap">
       <p class="eyebrow">About us</p>
@@ -252,13 +373,7 @@ ABOUT = """
 
       <h2>Partners &amp; supporters</h2>
       <p>The prize runs on donated prizes, space, materials and time. Supporters have included:</p>
-      <ul class="partner-list">
-        <li>The Glasgow School of Art</li>
-        <li>West Dunbartonshire Council</li>
-        <li>Partick Thistle Football Club</li>
-        <li>Cass Art</li>
-        <li>The Alchemy Experiment</li>
-      </ul>
+{partner_list()}
     </div>
   </section>
 
@@ -267,13 +382,14 @@ ABOUT = """
       <div class="contact-intro">
         <p class="eyebrow">Get involved</p>
         <h2>Partner, sponsor or support the prize</h2>
-        <p>Every prize, every wall and every opening night comes from someone choosing to help. If you&rsquo;d like to be part of the next Jackie Marno-McGoldrick Art Prize as a partner, sponsor or supporter, we&rsquo;d love to hear from you.</p>
-        <p class="contact-direct">Prefer email? <a href="mailto:callum_jstewart@hotmail.com?subject=JMM%20Art%20Prize%20%E2%80%94%20getting%20involved">callum_jstewart@hotmail.com</a></p>
+        <p>Every prize, every wall and every opening night comes from someone choosing to help. If you&rsquo;d like to be part of the next Jackie Marno-McGoldrick Art Prize as a partner, sponsor or supporter, send a message below and we&rsquo;ll be in touch.</p>
         <p class="contact-note"><strong>Are you a pupil or parent wanting to enter?</strong> Entries are handled by school art departments &mdash; please speak to your school&rsquo;s art teacher, or send a message and we&rsquo;ll point you the right way.</p>
       </div>
       <!--
-        FORM SETUP: create a free account at https://formspree.io, add a form,
-        and replace REPLACE_WITH_FORM_ID below with your form's ID. See README.md.
+        FORM SETUP: create a free account at https://formspree.io, add a form, set
+        its notification email in the Formspree dashboard, then replace
+        REPLACE_WITH_FORM_ID below with the form's ID. See README.md. The delivery
+        address lives only in Formspree, never on this page.
       -->
       <form class="contact-form" action="https://formspree.io/f/REPLACE_WITH_FORM_ID" method="POST">
         <p class="field">
@@ -297,7 +413,7 @@ ABOUT = """
           <label>Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
         </p>
         <button type="submit" class="btn btn-primary">Send message</button>
-        <p class="form-fallback">Trouble with the form? Email <a href="mailto:callum_jstewart@hotmail.com">callum_jstewart@hotmail.com</a>.</p>
+        <p class="form-fallback">You can also reach us on <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">Instagram</a>.</p>
       </form>
     </div>
   </section>
@@ -418,7 +534,7 @@ EXHIBITIONS = """
           <figure><img src="assets/callum-speech.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Callum Stewart speaking to guests at the 2025 opening night."><figcaption>Callum Stewart at the 2025 opening night</figcaption></figure>
           <figure><img src="assets/alchemy-crowd.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Guests gathered among the hung pupil artworks at the 2025 opening night."></figure>
         </div>
-        <p><a href="previous-work.html#entries-2025">See the 2025 entries &rarr;</a></p>
+        <p><a href="entries-2025.html">See the 2025 entries &rarr;</a></p>
       </article>
 
       <article class="year">
@@ -427,20 +543,30 @@ EXHIBITIONS = """
         <p>The first exhibition showed finalists&rsquo; work from the Clydebank area and was extended by a week after popular demand. The inaugural winner was Frankie Thom, for the work <em>Reflections</em>.</p>
         <blockquote>
           <p>&ldquo;You should take huge pride in what you&rsquo;ve created, which I&rsquo;m sure will be a successful and rewarding event for aspiring young artists for many years to come.&rdquo;</p>
-          <cite>Graeme Thom, father of 2024 winner Frankie Thom</cite>
+          <cite>Father of 2024 winner</cite>
         </blockquote>
-        <p><a href="previous-work.html#entries-2024">See the 2024 entries &rarr;</a></p>
+        <p><a href="entries-2024.html">See the 2024 entries &rarr;</a></p>
       </article>
     </div>
   </section>
 """
 
-WORK = f"""
+
+def build_previous_work(manifest):
+    if manifest:
+        entries_block = f"""
+      <p class="section-lede">Pupils&rsquo; work entered into past competitions, shown by year and school &mdash; without names. Choose a year:</p>
+{render_year_cards(manifest)}
+"""
+    else:
+        entries_block = ('\n      <p class="muted">The competition entries gallery will appear '
+                         'here once the images have been processed.</p>\n')
+    return f"""
   <section class="page-head">
     <div class="wrap">
       <p class="eyebrow">Previous work</p>
       <h1>Previous work</h1>
-      <p class="lede">Jackie&rsquo;s own drawings and paintings, and the pupils&rsquo; work entered into past competitions &mdash; shown by year and school, without names.</p>
+      <p class="lede">Jackie&rsquo;s own drawings and paintings, and the pupils&rsquo; work entered into past competitions.</p>
     </div>
   </section>
 
@@ -460,26 +586,66 @@ WORK = f"""
   <section class="section section-alt">
     <div class="wrap">
       <h2>Previous competition entries</h2>
-      {render_entries()}
+{entries_block}
     </div>
   </section>
 """
 
-PAGES = [
-    ("index.html", "The Jackie Marno-McGoldrick Art Prize | Glasgow",
-     "A free annual art prize and exhibition for school pupils across West Dunbartonshire, held in Glasgow, in memory of artist and teacher Jackie Marno-McGoldrick.", HOME, False),
-    ("about.html", "About us | The Jackie Marno-McGoldrick Art Prize",
-     "Why the Jackie Marno-McGoldrick Art Prize exists, how it works, its partners, and how to get involved as a sponsor or supporter.", ABOUT, False),
-    ("jackies-story.html", "Jackie's Story | The Jackie Marno-McGoldrick Art Prize",
-     "Jackie Marno-McGoldrick was an artist and art teacher at Clydebank High School for nearly twenty years. Her story, and her work.", STORY, True),
-    ("art-prize.html", "The Art Prize | The Jackie Marno-McGoldrick Art Prize",
-     "How to enter the Jackie Marno-McGoldrick Art Prize: who can enter, categories, prizes and the timeline for the year.", PRIZE, False),
-    ("exhibitions.html", "Previous exhibitions | The Jackie Marno-McGoldrick Art Prize",
-     "The 2024 and 2025 Jackie Marno-McGoldrick Art Prize exhibitions at The Alchemy Experiment on Byres Road, Glasgow.", EXHIBITIONS, False),
-    ("previous-work.html", "Previous work | The Jackie Marno-McGoldrick Art Prize",
-     "Jackie Marno-McGoldrick's drawings and paintings, and pupils' work from the 2024 and 2025 competitions, shown by year and school.", WORK, True),
-]
 
-for path, title, desc, body, lb in PAGES:
-    (SITE / path).write_text(page(path, title, desc, body, lightbox=lb), encoding="utf-8")
-    print("wrote", path)
+# ---------------------------------------------------------------- write it all
+
+def build_sitemap(extra_paths):
+    urls = ["", "about.html", "jackies-story.html", "art-prize.html",
+            "exhibitions.html", "previous-work.html"] + list(extra_paths)
+    items = "\n".join(
+        f"  <url><loc>{BASE_URL}/{u}</loc></url>" for u in urls
+    )
+    (SITE / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + items + "\n</urlset>\n",
+        encoding="utf-8",
+    )
+
+
+def main():
+    manifest = load_manifest()
+
+    static_pages = [
+        ("index.html", "The Jackie Marno-McGoldrick Art Prize | Glasgow",
+         "A free annual art prize and exhibition for school pupils across West Dunbartonshire, held in Glasgow, in memory of artist and teacher Jackie Marno-McGoldrick.",
+         HOME, None, False),
+        ("about.html", "About us | The Jackie Marno-McGoldrick Art Prize",
+         "Why the Jackie Marno-McGoldrick Art Prize exists, how it works, its partners, and how to get involved as a sponsor or supporter.",
+         ABOUT, None, False),
+        ("jackies-story.html", "Jackie's Story | The Jackie Marno-McGoldrick Art Prize",
+         "Jackie Marno-McGoldrick was an artist and art teacher at Clydebank High School for nearly twenty years. Her story, and her work.",
+         STORY, None, True),
+        ("art-prize.html", "The Art Prize | The Jackie Marno-McGoldrick Art Prize",
+         "How to enter the Jackie Marno-McGoldrick Art Prize: who can enter, categories, prizes and the timeline for the year.",
+         PRIZE, None, False),
+        ("exhibitions.html", "Previous exhibitions | The Jackie Marno-McGoldrick Art Prize",
+         "The 2024 and 2025 Jackie Marno-McGoldrick Art Prize exhibitions at The Alchemy Experiment on Byres Road, Glasgow.",
+         EXHIBITIONS, None, False),
+        ("previous-work.html", "Previous work | The Jackie Marno-McGoldrick Art Prize",
+         "Jackie Marno-McGoldrick's drawings and paintings, and pupils' work from past competitions, shown by year and school.",
+         build_previous_work(manifest), None, True),
+    ]
+
+    entries_pages = [
+        (p, t, d, m, "previous-work.html", lb)
+        for (p, t, d, m, lb) in build_entries_pages(manifest)
+    ]
+
+    for path, title, desc, body, current, lb in static_pages + entries_pages:
+        (SITE / path).write_text(
+            page(path, title, desc, body, current=current, lightbox=lb), encoding="utf-8"
+        )
+        print("wrote", path)
+
+    build_sitemap(p for (p, *_rest) in entries_pages)
+    print("wrote sitemap.xml")
+
+
+if __name__ == "__main__":
+    main()

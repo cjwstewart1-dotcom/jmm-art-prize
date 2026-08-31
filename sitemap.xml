@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://jmmartprize.co.uk/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://jmmartprize.co.uk/about.html</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://jmmartprize.co.uk/jackies-story.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://jmmartprize.co.uk/art-prize.html</loc><changefreq>yearly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://jmmartprize.co.uk/exhibitions.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://jmmartprize.co.uk/previous-work.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://jmmartprize.co.uk/</loc></url>
+  <url><loc>https://jmmartprize.co.uk/about.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/jackies-story.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/art-prize.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/exhibitions.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/previous-work.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2025.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2025-clydebank-high-school.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2025-st-peter-the-apostle.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2025-dumbarton-academy.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2025-vale-of-leven-academy.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024-clydebank-high-school.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024-st-peter-the-apostle.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024-dumbarton-academy.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024-vale-of-leven-academy.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024-our-lady-and-st-patricks.html</loc></url>
+  <url><loc>https://jmmartprize.co.uk/entries-2024-gavinburn-primary.html</loc></url>
 </urlset>

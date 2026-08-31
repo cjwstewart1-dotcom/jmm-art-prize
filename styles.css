@@ -171,16 +171,41 @@ h3 { font-size: clamp(1.15rem, 1.05rem + 0.7vw, 1.45rem); }
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+/* "Partner with us" CTA — far right on desktop, under the name on mobile */
+.nav-cta {
+  position: absolute;
+  right: var(--pad);
+  top: 1rem;
+  background: var(--rust-deep);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  padding: 0.5rem 1.05rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  transition: background 0.18s ease;
+}
+.nav-cta:hover { background: var(--ink); color: var(--paper); }
+
 @media (max-width: 760px) {
   .header-inner { align-items: center; }
   .nav-toggle { display: block; }
+  .nav-cta {
+    position: static;
+    order: 2;
+    margin-top: 0.55rem;
+    font-size: 0.9rem;
+  }
   .primary-nav {
     display: none;
+    order: 3;
     flex-direction: column;
     align-items: center;
     width: 100%;
     gap: 0;
-    margin-top: 0.35rem;
+    margin-top: 0.5rem;
   }
   .primary-nav.open { display: flex; }
   .primary-nav a {
@@ -502,45 +527,74 @@ blockquote cite {
 .footer-fine { margin: 0; font-size: 0.8rem; color: var(--ink-soft); line-height: 1.5; }
 
 /* ---------- Competition entries gallery ---------- */
-.entry-jump {
-  font-size: 0.95rem;
+
+/* Breadcrumbs on the year / school sub-pages */
+.crumbs {
+  font-size: 0.85rem;
   color: var(--ink-soft);
-  margin: 0 0 2rem;
+  margin: 0 0 1rem;
+  letter-spacing: 0.01em;
 }
-.entry-jump a { margin: 0 0.15rem; }
+.crumbs a { text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+.crumbs span[aria-current] { color: var(--ink); }
+.crumbs span[aria-hidden] { color: var(--gold-deep); margin: 0 0.15rem; }
 
-.entry-year { margin-top: 2.75rem; }
-.entry-year:first-of-type { margin-top: 1.5rem; }
-.entry-year > h2 {
-  padding-bottom: 0.35rem;
-  border-bottom: 2px solid var(--gold);
+/* Cards linking to a year, or to a school within a year */
+.year-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.1rem;
 }
-
-.school-block { margin-top: 2rem; }
-.school-block h3 {
+.year-card {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 0.9rem;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
-.school-block .count {
-  font-family: var(--sans);
-  font-weight: 600;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold-deep);
+.year-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -22px rgba(38, 32, 20, 0.6);
+  color: var(--ink);
 }
-h4.stage {
+.year-card-img {
+  display: block;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-2);
+}
+.year-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.year-card-body {
+  padding: 0.9rem 1rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.year-card-body strong {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+.year-card-body .muted { font-size: 0.85rem; }
+
+.back-link { margin-top: 2rem; font-size: 0.95rem; }
+.back-link a { text-decoration: none; }
+.back-link a:hover { text-decoration: underline; }
+
+/* Stage sub-heading on a school page (S1, S2, …) */
+.stage {
   font-family: var(--sans);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin: 1.4rem 0 0.7rem;
+  margin: 1.8rem 0 0.8rem;
 }
+.stage:first-of-type { margin-top: 0.5rem; }
 
 .entry-grid {
   display: grid;

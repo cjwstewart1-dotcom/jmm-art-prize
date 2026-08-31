@@ -74,12 +74,12 @@ The form on `about.html` posts to [Formspree](https://formspree.io) (free tier i
 3. In `about.html` (and `build_site.py` if you use it), replace `REPLACE_WITH_FORM_ID`
    with your form ID (`abcdwxyz`).
 
-Until then the form shows but won't send — the email link beside it still works.
+4. In the Formspree dashboard, set the form's **notification email** to the address
+   you want enquiries sent to. That address lives only in Formspree — it never
+   appears on the website.
 
-## Contact email
-
-Currently `callum_jstewart@hotmail.com`. It appears in `about.html` (twice) and in
-the shared footer on every page (and in `build_site.py`). Search and replace to change it.
+Until Formspree is set up the form shows but won't send. The page has no email
+address on it by design; the fallback pointer is the Instagram link.
 
 ## Run it locally
 
