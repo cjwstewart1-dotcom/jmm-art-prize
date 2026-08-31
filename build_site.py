@@ -34,12 +34,17 @@ BASE_URL = "https://jmmartprize.co.uk"
 
 # Submissions come in with names to strip; here they are only ever grouped.
 PARTNERS = [
-    ("The Glasgow School of Art", "https://www.gsa.ac.uk/"),
-    ("West Dunbartonshire Council", "https://www.west-dunbarton.gov.uk/"),
-    ("Partick Thistle Football Club", "https://ptfc.co.uk/"),
-    ("Cass Art", "https://www.cassart.co.uk/"),
-    ("The Alchemy Experiment", "https://www.alchemyexperiment.com/"),
+    ("The Glasgow School of Art", "https://www.gsa.ac.uk/", "glasgow-school-of-art.png"),
+    ("West Dunbartonshire Council", "https://www.west-dunbarton.gov.uk/", "west-dunbartonshire-council.png"),
+    ("Partick Thistle Football Club", "https://ptfc.co.uk/", "partick-thistle-fc.png"),
+    ("Cass Art", "https://www.cassart.co.uk/", "cass-art.png"),
+    ("The Alchemy Experiment", "https://www.alchemyexperiment.com/", "the-alchemy-experiment.png"),
 ]
+
+# Estimated campaign reach (impressions across press + social), from the year one-pagers
+REACH = {"2024": 2_292_500, "2025": 2_512_023}
+
+TICKER_TEXT = "Entries to the 2026 JMM Art Prize are now open"
 
 # Media coverage — (outlet, headline, year, url, image or None)
 MEDIA = [
@@ -104,8 +109,10 @@ STAGE_ORDER = ["Primary", "S1", "S2", "S3", "S4", "S5", "S6", "S5–6", ""]
 
 def partner_list():
     lis = "\n".join(
-        f'        <li><a href="{url}" target="_blank" rel="noopener">{html.escape(name)}</a></li>'
-        for name, url in PARTNERS
+        f'        <li><a href="{url}" target="_blank" rel="noopener">'
+        f'<span class="partner-logo"><img src="assets/partners/{logo}" alt="" loading="lazy" decoding="async"></span>'
+        f'<span class="partner-name">{html.escape(name)}</span></a></li>'
+        for name, url, logo in PARTNERS
     )
     return f'      <ul class="partner-list">\n{lis}\n      </ul>'
 
@@ -182,11 +189,26 @@ LIGHTBOX = """<div id="lightbox" class="lightbox" aria-hidden="true">
 """
 
 
+def ticker():
+    reps = 8
+    spans = "".join(
+        ('<span>' if i == 0 else '<span aria-hidden="true">') + TICKER_TEXT + '</span>'
+        for i in range(reps)
+    )
+    return (
+        '<div class="ticker">\n'
+        f'  <a href="art-prize.html" aria-label="{TICKER_TEXT} &mdash; how to enter">'
+        f'<span class="ticker-track" aria-hidden="true">{spans}</span></a>\n'
+        '</div>\n'
+    )
+
+
 def page(path, title, description, main_html, current=None, lightbox=False):
     body = f'<main id="main">\n{main_html}\n</main>\n'
     if lightbox:
         body += LIGHTBOX
-    return head(title, description, path) + header(current or path) + body + FOOTER + \
+    topbar = '<div class="topbar">\n' + header(current or path) + ticker() + '</div>\n'
+    return head(title, description, path) + topbar + body + FOOTER + \
         '<script src="main.js"></script>\n</body>\n</html>\n'
 
 
@@ -603,6 +625,7 @@ EXHIBITIONS = """
         <h2>2025 &mdash; second year</h2>
         <p class="year-meta">31 October &ndash; 13 November 2025 &middot; The Alchemy Experiment, Glasgow</p>
         <p>Entries were up 96% on the first year. With the support of partners and sponsors, eleven prizes were awarded across the four categories &mdash; roughly one in every eleven entries. The exhibition ran for two weeks and drew pupils, families, teachers and West End visitors through the doors. Work came from Clydebank High School, St Peter the Apostle High School, Dumbarton Academy and Vale of Leven Academy.</p>
+        <p class="stat"><span class="stat-num">2,512,023</span> estimated reach of the 2025 campaign across local press and social media</p>
         <div class="photo-row">
           <figure><img src="assets/alchemy-exterior.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Crowds inside The Alchemy Experiment on Byres Road at the 2025 opening, seen through the window beneath the neon sign."></figure>
           <figure><img src="assets/callum-speech.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Callum Stewart speaking to guests at the 2025 opening night."><figcaption>Callum Stewart at the 2025 opening night</figcaption></figure>
@@ -615,6 +638,7 @@ EXHIBITIONS = """
         <h2>2024 &mdash; inaugural year</h2>
         <p class="year-meta">31 October &ndash; 14 November 2024 &middot; The Alchemy Experiment, Glasgow</p>
         <p>The first exhibition showed finalists&rsquo; work from the Clydebank area and was extended by a week after popular demand. The inaugural winner was Frankie Thom, for the work <em>Reflections</em>.</p>
+        <p class="stat"><span class="stat-num">2,292,500</span> estimated reach of the 2024 campaign across local press and social media</p>
         <div class="photo-row">
           <figure><img src="assets/media/exh2024-wall.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Pupils' paintings and drawings hung on the brick wall at the 2024 exhibition."></figure>
           <figure><img src="assets/media/exh2024-room.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Guests filling the room at the 2024 opening night, artworks lining both walls."><figcaption>The 2024 opening night</figcaption></figure>
@@ -642,6 +666,7 @@ MEDIA_PAGE = f"""
 
   <section class="section" id="media-coverage">
     <div class="wrap">
+      <p class="stat stat-lg"><span class="stat-num">4.8 million</span> estimated combined reach of the 2024 and 2025 campaigns across local press and social media</p>
 {media_grid()}
     </div>
   </section>
