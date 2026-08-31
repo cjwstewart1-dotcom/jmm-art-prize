@@ -54,6 +54,9 @@ a:hover { color: var(--ink); }
   padding-inline: var(--pad);
 }
 
+/* Offset in-page anchor jumps for the sticky header */
+[id] { scroll-margin-top: 92px; }
+
 .skip-link {
   position: absolute;
   left: -999px;
@@ -240,6 +243,56 @@ figcaption {
 @media (max-width: 780px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-figure { max-width: 420px; margin-inline: auto; }
+}
+
+/* ---------- 2026 announcement (Home) ---------- */
+.announce {
+  background: var(--paper-2);
+  border-top: 3px solid var(--rust);
+}
+.announce-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) 1fr;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  align-items: start;
+}
+.announce-poster { margin: 0; }
+.announce-poster img {
+  width: 100%;
+  border-radius: 3px;
+  box-shadow: 0 18px 40px -22px rgba(38, 32, 20, 0.55);
+}
+.announce-copy h2 { margin-top: 0.3rem; }
+.announce-copy p { max-width: 60ch; }
+
+.announce-facts {
+  margin: 1.5rem 0;
+  display: grid;
+  gap: 0.55rem;
+  border-block: 1px solid var(--line);
+  padding-block: 1.1rem;
+}
+.announce-facts > div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.4rem 1rem;
+}
+.announce-facts dt {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  padding-top: 0.15rem;
+}
+.announce-facts dd { margin: 0; }
+
+@media (max-width: 780px) {
+  .announce-grid { grid-template-columns: 1fr; }
+  .announce-poster { max-width: 360px; margin-inline: auto; }
+}
+@media (max-width: 480px) {
+  .announce-facts > div { grid-template-columns: 1fr; gap: 0.1rem; }
 }
 
 /* ---------- Page head (interior pages) ---------- */
