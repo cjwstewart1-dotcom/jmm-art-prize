@@ -79,21 +79,14 @@ Two galleries, both with a click-to-enlarge lightbox:
   top. School codes in 2024 filenames (CHS, SPTA, DA, VOLA, OLSP) and the 2025
   per-school folders are mapped in the `SCHOOLS` / `FOLDER_TO_CODE` dicts.
 
-## The get-involved form — one-time setup
+## The get-involved form
 
-The form on `about.html` posts to [Formspree](https://formspree.io) (free tier is fine).
-
-1. Create a free account, verify your email.
-2. Create a form; Formspree gives you an endpoint like `https://formspree.io/f/abcdwxyz`.
-3. In `about.html` (and `build_site.py` if you use it), replace `REPLACE_WITH_FORM_ID`
-   with your form ID (`abcdwxyz`).
-
-4. In the Formspree dashboard, set the form's **notification email** to the address
-   you want enquiries sent to. That address lives only in Formspree — it never
-   appears on the website.
-
-Until Formspree is set up the form shows but won't send. The page has no email
-address on it by design; the fallback pointer is the Instagram link.
+The form on `about.html` posts to [Formspree](https://formspree.io) form
+**`xgaeoqrg`** (`action="https://formspree.io/f/xgaeoqrg"`). Where submissions are
+emailed is set in the Formspree dashboard, not on the page. To change the delivery
+address, log in to Formspree; to use a different form, swap the id in the `action`
+(in `build_site.py`, then rebuild). The page carries no email address by design;
+the fallback pointer is the Instagram link.
 
 ## Run it locally
 
