@@ -159,15 +159,16 @@ h3 { font-size: clamp(1.15rem, 1.05rem + 0.7vw, 1.45rem); }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.4rem clamp(0.9rem, 2.2vw, 1.7rem);
+  gap: 0.35rem clamp(0.75rem, 1.7vw, 1.2rem);
 }
 .primary-nav a {
   text-decoration: none;
   color: var(--ink-soft);
-  font-size: 0.92rem;
+  font-size: 0.875rem;
   font-weight: 500;
   padding: 0.15rem 0;
   border-bottom: 2px solid transparent;
+  white-space: nowrap;
 }
 .primary-nav a:hover { color: var(--ink); }
 .primary-nav a[aria-current="page"] {

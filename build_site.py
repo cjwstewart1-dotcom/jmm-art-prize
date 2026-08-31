@@ -26,6 +26,7 @@ NAV = [
     ("exhibitions.html", "Previous exhibitions"),
     ("previous-work.html", "Previous work"),
     ("media-coverage.html", "Media coverage"),
+    ("https://www.justgiving.com/crowdfunding/jmm2026?utm_medium=FA&utm_source=CL", "Donate"),
     ("about.html#get-involved", "Partner with us"),
 ]
 
@@ -136,9 +137,10 @@ def head(title, description, path):
 
 def header(current):
     links = "\n".join(
-        '      <a href="{href}"{cur}>{label}</a>'.format(
-            href=href,
+        '      <a href="{href}"{ext}{cur}>{label}</a>'.format(
+            href=html.escape(href, quote=True),
             label=label,
+            ext=' target="_blank" rel="noopener"' if href.startswith("http") else "",
             cur=' aria-current="page"' if href == current else "",
         )
         for href, label in NAV
