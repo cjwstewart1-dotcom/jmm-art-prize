@@ -44,7 +44,10 @@ PARTNERS = [
 # Estimated campaign reach (impressions across press + social), from the year one-pagers
 REACH = {"2024": 2_292_500, "2025": 2_512_023}
 
-TICKER_TEXT = "Entries to the 2026 JMM Art Prize are now open"
+TICKER_MESSAGES = [
+    "Entries to the 2026 JMM Art Prize are now open",
+    "2026 JMM Art Prize dates confirmed: 23rd - 29th October",
+]
 
 # Media coverage - (outlet, headline, year, url, image or None)
 MEDIA = [
@@ -191,14 +194,15 @@ LIGHTBOX = """<div id="lightbox" class="lightbox" aria-hidden="true">
 
 
 def ticker():
-    reps = 8
+    # Repeat the message set 4x so a -50% scroll loops seamlessly.
     spans = "".join(
-        ('<span>' if i == 0 else '<span aria-hidden="true">') + TICKER_TEXT + '</span>'
-        for i in range(reps)
+        f'<span>{msg}</span>'
+        for _ in range(4) for msg in TICKER_MESSAGES
     )
+    label = " - ".join(TICKER_MESSAGES)
     return (
         '<div class="ticker">\n'
-        f'  <a href="art-prize.html" aria-label="{TICKER_TEXT} - how to enter">'
+        f'  <a href="art-prize.html" aria-label="{label}">'
         f'<span class="ticker-track" aria-hidden="true">{spans}</span></a>\n'
         '</div>\n'
     )
@@ -401,7 +405,7 @@ HOME = f"""
         <p>The Jackie Marno-McGoldrick Art Prize is going ahead for 2026. We&rsquo;re keeping the competition true to its roots - free to enter, open to every school pupil across West Dunbartonshire, and built around a real exhibition in Glasgow&rsquo;s West End - and continuing the work Jackie&rsquo;s son, Callum Stewart, started in 2024.</p>
         <p>The same idea sits behind it as it did on day one: give young people a wall, an audience, and the message that their work matters.</p>
         <dl class="announce-facts">
-          <div><dt>Exhibiting</dt><dd>23 October &ndash; 6 November 2026</dd></div>
+          <div><dt>Exhibiting</dt><dd>23rd &ndash; 29th October 2026</dd></div>
           <div><dt>Where</dt><dd>The Alchemy Experiment, 157 Byres Road, Glasgow G12 8TS</dd></div>
           <div><dt>Who can enter</dt><dd>School pupils across West Dunbartonshire, in any medium</dd></div>
         </dl>
