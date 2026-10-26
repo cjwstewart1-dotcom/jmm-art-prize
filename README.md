@@ -79,6 +79,27 @@ Two galleries, both with a click-to-enlarge lightbox:
   top. School codes in 2024 filenames (CHS, SPTA, DA, VOLA, OLSP) and the 2025
   per-school folders are mapped in the `SCHOOLS` / `FOLDER_TO_CODE` dicts.
 
+## 2026 recap: entries, event photos, winners, ticker
+
+- **Entries and event photos** come from `tools/process_2026.py`. It strips every pupil
+  name (anonymous file IDs, grouped only year -> school -> year group), resizes, merges
+  into `assets/entries/manifest.json`, and writes the photographer's shots to
+  `assets/events/2026/`. Run it from a folder of local copies (Drive streams slowly):
+
+  ```bash
+  python3 tools/process_2026.py --schools <schools-dir> --events <event-photos-dir> \
+      [--scorecard <scorecard.csv>]
+  python3 build_site.py
+  ```
+
+  The optional scorecard CSV is only read locally, to find the year group of a few files
+  whose names carry none. It is never written out or committed.
+- **Winners** are the `WINNERS_2026` list in `build_site.py` - **first names only**.
+  Add or correct a place there (it feeds the Home page and the Previous exhibitions page).
+- **Which event photos show where**: `EVENT_HOME` (Home mosaic, first is the big one) and
+  `EVENT_EXHIBITIONS` (the 2026 exhibition row). Numbers are 1-based, in camera order.
+- **Ticker**: `TICKER_MESSAGES` and `TICKER_HREF` at the top of `build_site.py`.
+
 ## The get-involved form
 
 The form on `about.html` posts to [Formspree](https://formspree.io) form

@@ -45,9 +45,10 @@ PARTNERS = [
 REACH = {"2024": 2_292_500, "2025": 2_512_023}
 
 TICKER_MESSAGES = [
-    "Entries to the 2026 JMM Art Prize are now open",
-    "2026 JMM Art Prize dates confirmed: 23rd - 29th October",
+    "The 2026 JMM Art Prize was a huge success - thank you to every pupil, school and supporter",
+    "See the 2026 winners, entries and event photos",
 ]
+TICKER_HREF = "exhibitions.html#year-2026"
 
 # Media coverage - (outlet, headline, year, url, image or None)
 MEDIA = [
@@ -104,7 +105,7 @@ SCHOOL_ORDER = [
     "our-lady-and-st-patricks",
     "gavinburn-primary",
 ]
-STAGE_ORDER = ["Primary", "S1", "S2", "S3", "S4", "S5", "S6", "S5–6", ""]
+STAGE_ORDER = ["Primary", "S1", "S2", "S1–S2", "S3", "S4", "S3–S4", "S5", "S6", "S5–S6", "S5–6", ""]
 
 # The get-involved form delivers wherever Formspree is configured to send it.
 # The address is set in the Formspree dashboard, never on the page.
@@ -202,7 +203,7 @@ def ticker():
     label = " - ".join(TICKER_MESSAGES)
     return (
         '<div class="ticker">\n'
-        f'  <a href="art-prize.html" aria-label="{label}">'
+        f'  <a href="{TICKER_HREF}" aria-label="{label}">'
         f'<span class="ticker-track" aria-hidden="true">{spans}</span></a>\n'
         '</div>\n'
     )
@@ -372,6 +373,73 @@ def build_entries_pages(manifest):
 
 # ---------------------------------------------------------------- page content
 
+# ---------------------------------------------------------------- 2026 recap helpers
+
+# First names only, by design. Add a place here once it is confirmed.
+WINNERS_2026 = [
+    ("S1&ndash;S2", [("1st", ["Sophia"]), ("2nd", ["Jessica"])]),
+    ("S3&ndash;S4", [("1st (joint)", ["Ciara", "Eva"]), ("2nd", ["Daisy"]), ("3rd", ["Logan"])]),
+    ("S5&ndash;S6", [("1st", ["Abbie"]), ("2nd", ["Freya"]), ("3rd", ["Mirrin"])]),
+]
+
+# Which of the photographer's shots (1-based, in camera order) to feature where
+EVENT_HOME = [44, 29, 32, 57, 4]      # first one is shown large
+EVENT_EXHIBITIONS = [29, 32, 57]
+EVENT_ALTS = {
+    44: "Guests applauding during the speeches at the 2026 opening night at The Alchemy Experiment.",
+    29: "A speech to a packed room at the 2026 opening night, with the venue's neon sign behind.",
+    32: "A pupil receiving a framed certificate at the 2026 opening night.",
+    57: "The gallery full of visitors looking at pupils' work on the brick wall at the 2026 exhibition.",
+    4: "A wall of pupils' paintings and drawings at the 2026 exhibition.",
+}
+
+
+def load_events():
+    p = SITE / "assets" / "events" / "2026" / "manifest.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else []
+
+
+EVENTS_2026 = load_events()
+
+
+def winners_html():
+    cards = []
+    for cat, places in WINNERS_2026:
+        lis = "".join(
+            f'<li><span class="place">{place}</span> {" and ".join(names)}</li>'
+            for place, names in places
+        )
+        cards.append(f'        <div class="winner-card"><h3>{cat}</h3><ol class="podium">{lis}</ol></div>')
+    return '      <div class="winners">\n' + "\n".join(cards) + '\n      </div>'
+
+
+def mosaic_html():
+    if not EVENTS_2026:
+        return ""
+    out = []
+    for n, num in enumerate(EVENT_HOME):
+        ph = EVENTS_2026[num - 1]
+        src = ph["full"] if n == 0 else ph["thumb"]
+        out.append(
+            f'        <a class="lb" href="{ph["full"]}" aria-label="Enlarge photo">'
+            f'<img src="{src}" loading="lazy" decoding="async" alt="{EVENT_ALTS[num]}"></a>'
+        )
+    return '      <div class="photo-mosaic">\n' + "\n".join(out) + '\n      </div>'
+
+
+def exhibition_photos_html():
+    if not EVENTS_2026:
+        return ""
+    figs = []
+    for num in EVENT_EXHIBITIONS:
+        ph = EVENTS_2026[num - 1]
+        figs.append(
+            f'          <figure><img src="{ph["full"]}" width="{ph["w"]}" height="{ph["h"]}" loading="lazy" '
+            f'decoding="async" alt="{EVENT_ALTS[num]}"></figure>'
+        )
+    return '        <div class="photo-row">\n' + "\n".join(figs) + '\n        </div>'
+
+
 HOME = f"""
   <section class="hero">
     <div class="wrap hero-grid">
@@ -400,21 +468,41 @@ HOME = f"""
         <figcaption>The 2026 poster &middot; drawing by Jackie Marno-McGoldrick</figcaption>
       </figure>
       <div class="announce-copy">
-        <p class="eyebrow">Announcement &middot; 2026</p>
-        <h2>This year&rsquo;s competition is confirmed</h2>
-        <p>The Jackie Marno-McGoldrick Art Prize is going ahead for 2026. We&rsquo;re keeping the competition true to its roots - free to enter, open to every school pupil across West Dunbartonshire, and built around a real exhibition in Glasgow&rsquo;s West End - and continuing the work Jackie&rsquo;s son, Callum Stewart, started in 2024.</p>
-        <p>The same idea sits behind it as it did on day one: give young people a wall, an audience, and the message that their work matters.</p>
+        <p class="eyebrow">The 2026 prize &middot; complete</p>
+        <h2>The 2026 competition was a huge success</h2>
+        <p>The Jackie Marno-McGoldrick Art Prize 2026 took place from 23rd to 29th October at The Alchemy Experiment on Byres Road, and it was a brilliant week. Pupils from Clydebank High School, St Peter the Apostle High School and Dumbarton Academy filled the gallery with around 90 pieces of work, and a packed opening night celebrated the winners alongside their families, teachers and supporters.</p>
+        <p>We kept the competition true to its roots - free to enter, open to every school pupil across West Dunbartonshire, and built around a real exhibition in Glasgow&rsquo;s West End - and carried on the amazing work Jackie&rsquo;s son, Callum Stewart, started in 2024. Thank you to every pupil, teacher, partner and supporter who made it happen.</p>
         <dl class="announce-facts">
-          <div><dt>Exhibiting</dt><dd>23rd &ndash; 29th October 2026</dd></div>
+          <div><dt>Exhibited</dt><dd>23rd &ndash; 29th October 2026</dd></div>
           <div><dt>Where</dt><dd>The Alchemy Experiment, 157 Byres Road, Glasgow G12 8TS</dd></div>
-          <div><dt>Who can enter</dt><dd>School pupils across West Dunbartonshire, in any medium</dd></div>
+          <div><dt>Who took part</dt><dd>School pupils from three West Dunbartonshire schools, across S1 to S6</dd></div>
         </dl>
         <p class="muted">In association with The Glasgow School of Art, West Dunbartonshire Council, Partick Thistle Football Club, Cass Art and The Alchemy Experiment.</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="art-prize.html">How to enter</a>
-          <a class="btn btn-ghost" href="exhibitions.html">Previous years</a>
+          <a class="btn btn-primary" href="entries-2026.html">See the 2026 entries</a>
+          <a class="btn btn-ghost" href="event-photos-2026.html">Event photos</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-went">
+    <div class="wrap">
+      <p class="eyebrow">How it went</p>
+      <h2>A packed opening night and a week of brilliant work</h2>
+      <p class="section-lede">The gallery was full from the first minute. Pupils, parents, teachers and friends of the prize came to see the work, hear the winners announced and celebrate young artists from across West Dunbartonshire.</p>
+{mosaic_html()}
+      <p class="back-link"><a href="event-photos-2026.html">See all {len(EVENTS_2026)} event photos &rarr;</a></p>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="winners-2026">
+    <div class="wrap">
+      <p class="eyebrow">2026 winners</p>
+      <h2>Congratulations to our winners</h2>
+      <p class="section-lede">Well done to every pupil who entered, and congratulations to the winners in each category.</p>
+{winners_html()}
+      <p class="back-link"><a href="exhibitions.html#year-2026">More about the 2026 exhibition &rarr;</a></p>
     </div>
   </section>
 
@@ -576,6 +664,7 @@ PRIZE = """
 
   <section class="section">
     <div class="wrap">
+      <p class="notice"><strong>The 2026 prize has now taken place</strong> (23rd &ndash; 29th October 2026). Details of the next round will be shared here and on <a href="https://www.instagram.com/jmm_art_prize_glasgow/" target="_blank" rel="noopener">Instagram</a>. Until then, here is how the prize works.</p>
       <div class="card-grid">
         <div class="card">
           <h3>Who can enter</h3>
@@ -619,18 +708,28 @@ PRIZE = """
   </section>
 """
 
-EXHIBITIONS = """
+EXHIBITIONS = f"""
   <section class="page-head">
     <div class="wrap">
       <p class="eyebrow">Previous exhibitions</p>
-      <h1>Two years in Glasgow&rsquo;s West End has seen a 4.8 million estimated reach across both prizes</h1>
-      <p class="lede">Both exhibitions have been held at The Alchemy Experiment, on Byres Road, Glasgow. An inclusive arts venue and collective creating a space for art and creativity in Glasgow.</p>
+      <h1>Three years in Glasgow&rsquo;s West End</h1>
+      <p class="lede">The first two prizes saw a 4.8 million estimated reach. All three exhibitions have been held at The Alchemy Experiment, on Byres Road, Glasgow. An inclusive arts venue and collective creating a space for art and creativity in Glasgow.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <article class="year">
+      <article class="year" id="year-2026">
+        <h2>2026 - third year</h2>
+        <p class="year-meta">23rd &ndash; 29th October 2026 &middot; The Alchemy Experiment, Glasgow</p>
+        <p>The third exhibition ran from 23rd to 29th October 2026. Around 90 pieces of work from Clydebank High School, St Peter the Apostle High School and Dumbarton Academy were shown across four categories: S1&ndash;S2, S3&ndash;S4, S5&ndash;S6 and Photography. The opening night was packed with pupils, families, teachers and supporters, and certificates were presented to the winners in front of a full room.</p>
+{exhibition_photos_html()}
+        <h3 class="winners-title">2026 winners</h3>
+{winners_html()}
+        <p><a href="event-photos-2026.html">See all {len(EVENTS_2026)} event photos &rarr;</a> &nbsp; <a href="entries-2026.html">See the 2026 entries &rarr;</a></p>
+      </article>
+
+      <article class="year" id="year-2025">
         <h2>2025 - second year</h2>
         <p class="year-meta">31 October &ndash; 13 November 2025 &middot; The Alchemy Experiment, Glasgow</p>
         <p>Entries were up 96% on the first year. With the support of partners and sponsors, eleven prizes were awarded across the four categories - roughly one in every eleven entries. The exhibition ran for two weeks and drew pupils, families, teachers and West End visitors through the doors. Work came from Clydebank High School, St Peter the Apostle High School, Dumbarton Academy and Vale of Leven Academy.</p>
@@ -643,10 +742,10 @@ EXHIBITIONS = """
         <p><a href="entries-2025.html">See the 2025 entries &rarr;</a></p>
       </article>
 
-      <article class="year">
+      <article class="year" id="year-2024">
         <h2>2024 - inaugural year</h2>
         <p class="year-meta">31 October &ndash; 14 November 2024 &middot; The Alchemy Experiment, Glasgow</p>
-        <p>The first exhibition showed finalists&rsquo; work from the Clydebank area and was extended by a week after popular demand. The inaugural winner was Frankie Thom, for the work <em>Reflections</em>.</p>
+        <p>The first exhibition showed finalists&rsquo; work from the Clydebank area and was extended by a week after popular demand. The inaugural winner was Frankie, for the work <em>Reflections</em>.</p>
         <p class="stat"><span class="stat-num">2,292,500</span> estimated reach of the 2024 campaign across local press and social media</p>
         <div class="photo-row">
           <figure><img src="assets/media/exh2024-wall.jpg" width="1600" height="1067" loading="lazy" decoding="async" alt="Pupils' paintings and drawings hung on the brick wall at the 2024 exhibition."></figure>
@@ -775,10 +874,41 @@ def build_previous_work(manifest):
 
 # ---------------------------------------------------------------- write it all
 
+def build_event_photos_page():
+    if not EVENTS_2026:
+        return ""
+    n = len(EVENTS_2026)
+    links = "\n".join(
+        f'        <a class="lb" href="{ph["full"]}" aria-label="Enlarge photo">'
+        f'<img src="{ph["thumb"]}" loading="lazy" decoding="async" '
+        f'alt="Photograph {i} of {n} from the 2026 opening night and exhibition."></a>'
+        for i, ph in enumerate(EVENTS_2026, 1)
+    )
+    return f"""
+  <section class="page-head">
+    <div class="wrap">
+      {crumbs(("Previous exhibitions", "exhibitions.html"), ("2026 event photos", None))}
+      <p class="eyebrow">2026 exhibition</p>
+      <h1>The 2026 opening night</h1>
+      <p class="lede">{n} photographs from the 2026 opening night and exhibition at The Alchemy Experiment, 23rd &ndash; 29th October. Click any photo to enlarge.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="entry-grid event-grid">
+{links}
+      </div>
+      <p class="back-link"><a href="exhibitions.html#year-2026">&larr; The 2026 exhibition</a></p>
+    </div>
+  </section>
+"""
+
+
 def build_sitemap(extra_paths):
     urls = ["", "about.html", "jackies-story.html", "art-prize.html",
             "exhibitions.html", "previous-work.html", "media-coverage.html",
-            "privacy.html"] + list(extra_paths)
+            "privacy.html", "event-photos-2026.html"] + list(extra_paths)
     items = "\n".join(
         f"  <url><loc>{BASE_URL}/{u}</loc></url>" for u in urls
     )
@@ -796,7 +926,7 @@ def main():
     static_pages = [
         ("index.html", "The Jackie Marno-McGoldrick Art Prize | Glasgow",
          "A free annual art prize and exhibition for school pupils across West Dunbartonshire, held in Glasgow, in memory of artist and teacher Jackie Marno-McGoldrick.",
-         HOME, None, False),
+         HOME, None, True),
         ("about.html", "About us | The Jackie Marno-McGoldrick Art Prize",
          "Why the Jackie Marno-McGoldrick Art Prize exists, how it works, its partners, and how to get involved as a sponsor or supporter.",
          ABOUT, None, False),
@@ -807,7 +937,7 @@ def main():
          "How to enter the Jackie Marno-McGoldrick Art Prize: who can enter, categories, prizes and the timeline for the year.",
          PRIZE, None, False),
         ("exhibitions.html", "Previous exhibitions | The Jackie Marno-McGoldrick Art Prize",
-         "The 2024 and 2025 Jackie Marno-McGoldrick Art Prize exhibitions at The Alchemy Experiment on Byres Road, Glasgow.",
+         "The 2024, 2025 and 2026 Jackie Marno-McGoldrick Art Prize exhibitions at The Alchemy Experiment on Byres Road, Glasgow.",
          EXHIBITIONS, None, False),
         ("previous-work.html", "Previous work | The Jackie Marno-McGoldrick Art Prize",
          "Jackie Marno-McGoldrick's drawings and paintings, and pupils' work from past competitions, shown by year and school.",
@@ -815,6 +945,9 @@ def main():
         ("media-coverage.html", "Media coverage | The Jackie Marno-McGoldrick Art Prize",
          "Press and media coverage of the Jackie Marno-McGoldrick Art Prize and of Jackie herself, in print and online.",
          MEDIA_PAGE, None, False),
+        ("event-photos-2026.html", "2026 event photos | The Jackie Marno-McGoldrick Art Prize",
+         "Photographs from the 2026 Jackie Marno-McGoldrick Art Prize opening night and exhibition at The Alchemy Experiment, Glasgow.",
+         build_event_photos_page(), "exhibitions.html", True),
         ("privacy.html", "Privacy policy | The Jackie Marno-McGoldrick Art Prize",
          "How jmmartprize.co.uk handles information: no cookies, no analytics, and details of the get-involved contact form.",
          PRIVACY, None, False),

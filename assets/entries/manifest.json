@@ -890,5 +890,407 @@
     ]
    }
   }
+ },
+ "2026": {
+  "clydebank-high-school": {
+   "label": "Clydebank High School",
+   "count": 42,
+   "groups": {
+    "S3\u2013S4": [
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-01.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-02.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-03.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-04.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-05.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-05.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-06.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-06.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-07.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-07.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-08.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-08.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-09.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-09.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-10.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-10.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-11.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-11.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-12.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-12.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-13.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-13.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-14.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-14.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-15.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-15.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-16.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-16.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-17.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-17.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-18.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-18.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-19.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-19.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-20.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-20.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-21.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-21.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-22.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-22.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-23.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-23.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-24.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-24.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-25.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-25.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-26.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-26.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-27.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-27.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-28.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-28.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s3-s4-29.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s3-s4-29.jpg"
+     }
+    ],
+    "S1\u2013S2": [
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-01.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-02.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-03.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-04.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-05.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-05.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-06.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-06.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-07.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-07.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s1-s2-08.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s1-s2-08.jpg"
+     }
+    ],
+    "S5\u2013S6": [
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s5-s6-01.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s5-s6-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s5-s6-02.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s5-s6-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s5-s6-03.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s5-s6-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s5-s6-04.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s5-s6-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/clydebank-high-school/2026-clydebank-high-school-s5-s6-05.jpg",
+      "thumb": "assets/entries/2026/clydebank-high-school/thumb/2026-clydebank-high-school-s5-s6-05.jpg"
+     }
+    ]
+   }
+  },
+  "dumbarton-academy": {
+   "label": "Dumbarton Academy",
+   "count": 20,
+   "groups": {
+    "S1\u2013S2": [
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s1-s2-01.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s1-s2-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s1-s2-02.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s1-s2-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s1-s2-03.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s1-s2-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s1-s2-04.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s1-s2-04.jpg"
+     }
+    ],
+    "S5\u2013S6": [
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-01.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-02.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-03.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-04.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-05.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-05.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-06.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-06.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-07.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-07.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-08.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-08.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s5-s6-09.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s5-s6-09.jpg"
+     }
+    ],
+    "S3\u2013S4": [
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-01.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-02.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-03.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-04.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-05.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-05.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-06.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-06.jpg"
+     },
+     {
+      "full": "assets/entries/2026/dumbarton-academy/2026-dumbarton-academy-s3-s4-07.jpg",
+      "thumb": "assets/entries/2026/dumbarton-academy/thumb/2026-dumbarton-academy-s3-s4-07.jpg"
+     }
+    ]
+   }
+  },
+  "st-peter-the-apostle": {
+   "label": "St Peter the Apostle High School",
+   "count": 29,
+   "groups": {
+    "S1\u2013S2": [
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-01.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-02.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-03.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-04.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-05.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-05.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-06.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-06.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-07.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-07.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-08.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-08.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-09.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-09.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-10.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-10.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-11.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-11.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-12.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-12.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-13.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-13.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-14.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-14.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-15.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-15.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-16.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-16.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s1-s2-17.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s1-s2-17.jpg"
+     }
+    ],
+    "S3\u2013S4": [
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-01.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-02.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-02.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-03.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-03.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-04.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-04.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-05.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-05.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-06.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-06.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-07.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-07.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-08.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-08.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-09.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-09.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s3-s4-10.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s3-s4-10.jpg"
+     }
+    ],
+    "S5\u2013S6": [
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s5-s6-01.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s5-s6-01.jpg"
+     },
+     {
+      "full": "assets/entries/2026/st-peter-the-apostle/2026-st-peter-the-apostle-s5-s6-02.jpg",
+      "thumb": "assets/entries/2026/st-peter-the-apostle/thumb/2026-st-peter-the-apostle-s5-s6-02.jpg"
+     }
+    ]
+   }
+  }
  }
 }

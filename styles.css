@@ -895,3 +895,74 @@ blockquote cite {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- 2026 recap: photo mosaic, winners, notice, event gallery ---------- */
+.photo-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(110px, 17vw, 200px);
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+}
+.photo-mosaic a {
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--card);
+  box-shadow: 0 12px 26px -18px rgba(38, 32, 20, 0.55);
+}
+.photo-mosaic a:first-child { grid-column: span 2; grid-row: span 2; }
+.photo-mosaic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.photo-mosaic a:hover img,
+.photo-mosaic a:focus-visible img { transform: scale(1.04); }
+@media (max-width: 640px) {
+  .photo-mosaic { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 120px; }
+  .photo-mosaic a:first-child { grid-column: span 2; grid-row: span 2; }
+}
+
+.winners {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.winner-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--gold);
+  border-radius: 6px;
+  padding: 1.2rem 1.3rem 1.3rem;
+}
+.winner-card h3 { margin: 0 0 0.7rem; font-size: 1.15rem; }
+.podium { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.podium li { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; }
+.podium .place {
+  display: inline-block;
+  min-width: 5.2rem;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.winners-title { margin: 2rem 0 0; font-style: normal; }
+
+.notice {
+  margin: 0 0 1.75rem;
+  padding: 0.95rem 1.2rem;
+  background: var(--card);
+  border-left: 3px solid var(--rust);
+  border-radius: 0 6px 6px 0;
+  color: var(--ink-soft);
+  max-width: 70ch;
+}
+.notice strong { color: var(--ink); }
+
+.event-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.entry-grid.event-grid a.lb { aspect-ratio: 3 / 2; }
